@@ -7866,7 +7866,7 @@ namespace Catch {
             // call-stack for the code that caused it (typically a failed assertion)
 
             // (To go back to the test and change execution, jump over the throw, next)
-            CATCH_BREAK_INTO_DEBUGGER();
+            //CATCH_BREAK_INTO_DEBUGGER();
         }
         if (m_reaction.shouldThrow) {
 #if !defined(CATCH_CONFIG_DISABLE_EXCEPTIONS)
