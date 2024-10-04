@@ -169,9 +169,17 @@ TEST_CASE("Spam limit orders and occasional market orders") {
         auto book = LimitOrderBook();
         spam_limit_random_orders(book, 10000);
     };
-    BENCHMARK("100000 limit orders") {
+    BENCHMARK("100.000 limit orders") {
         auto book = LimitOrderBook();
         spam_limit_random_orders(book, 100000);
+    };
+    BENCHMARK("1.000.000 limit orders") {
+        auto book = LimitOrderBook();
+        spam_limit_random_orders(book, 1000000);
+    };
+    BENCHMARK("5.000.000 limit orders") {
+        auto book = LimitOrderBook();
+        spam_limit_random_orders(book, 50000000);
     };
 }
 
@@ -203,12 +211,25 @@ TEST_CASE("Spam limit orders and constant market orders") {
         auto book = LimitOrderBook();
         spam_limit_many_market_orders(book, 100);
     };
-    BENCHMARK("1000 limit orders") {
+    BENCHMARK("1.000 limit orders") {
         auto book = LimitOrderBook();
         spam_limit_many_market_orders(book, 1000);
     };
-    BENCHMARK("10000 limit orders") {
+    BENCHMARK("10.000 limit orders") {
         auto book = LimitOrderBook();
         spam_limit_many_market_orders(book, 10000);
+    };
+    BENCHMARK("100.000 limit orders") {
+        auto book = LimitOrderBook();
+        spam_limit_many_market_orders(book, 100000);
+    };
+    BENCHMARK("1.000.000 limit orders") {
+        auto book = LimitOrderBook();
+        spam_limit_many_market_orders(book, 1000000);
+    };
+    BENCHMARK("5.000.000 limit orders") {
+        auto book = LimitOrderBook();
+        //long long time = std::
+        spam_limit_many_market_orders(book, 5000000);
     };
 }
