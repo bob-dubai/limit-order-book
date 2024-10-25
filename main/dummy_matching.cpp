@@ -11,6 +11,27 @@
 using namespace LOB;
 
 
+inline void spam_limit_random_orders(
+    LimitOrderBook& book,
+    int count,
+    int price_mean = 500,
+    int price_variance = 20,
+    int quantity_mean = 100,
+    int quantity_variance = 10,
+    int order_every = 10
+) {
+    auto generator = std::default_random_engine();
+    auto price = std::normal_distribution<double>(price_mean, price_variance);
+    auto quantity = std::normal_distribution<double>(quantity_mean, quantity_variance);
+    for (int i = 1; i < count; i++) {
+        auto price_ = static_cast<uint64_t>(price(generator));
+        auto quantity_ = static_cast<uint32_t>(quantity(generator));
+        book.limit(Side::Buy, i, 100, price_);
+        if (i % order_every == 0)  // random submit a market order
+            book.market(Side::Sell, i, quantity_);
+    }
+}
+
 inline void spam_limit_many_market_orders(
     LimitOrderBook& book,
     int count,
@@ -37,13 +58,14 @@ int main() {
     // Start timing
     auto start = std::chrono::high_resolution_clock::now();
     auto book = LimitOrderBook();
-    spam_limit_many_market_orders(book, count);
+    // spam_limit_many_market_orders(book, count);
+    spam_limit_random_orders(book, count);
 
     // End timing
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
 
-    std::cout << "Total Orders " << count << " have been submitted." << std::endl;
+    std::cout << "Total spam_limit_random_orders " << count << " have been submitted." << std::endl;
     std::cout << "Time taken: " << elapsed.count() << " seconds." << std::endl;
 
     return 0;
